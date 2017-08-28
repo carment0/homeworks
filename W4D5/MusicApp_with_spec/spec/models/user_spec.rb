@@ -11,7 +11,7 @@ describe User do
   it { should validate_presence_of(:password_digest) }
   it { should validate_length_of(:password).is_at_least(6) }
 
-  it "creates a password digest when a password is given" do
+  it "creates a password digest with password" do
     expect(user.password_digest).to_not be_nil
   end
 
@@ -25,8 +25,6 @@ describe User do
       user.valid?
       old_session_token = user.session_token
       user.reset_session_token!
-
-      # Miniscule chance this will fail.
       expect(user.session_token).to_not eq(old_session_token)
     end
 
